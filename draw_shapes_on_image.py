@@ -15,7 +15,7 @@
     python3.5 draw_shapes_on_image.py -i vehicular_traffic.jpg -s ellipse -xy 300 450 -hw 100 50 -rot 45 -ang1 130 -ang2 270 -c 0 0 255 -t 2
 
     polygon:
-    python3.5 draw_shapes_on_image.py -i vehicular_traffic.jpg -s polygon -b True -c 0 255 0 -t 2
+    python3.5 draw_shapes_on_image.py -i vehicular_traffic.jpg -a 1048 180 1121 220 1099 314 995 314 976 220 -s polygon -b True -c 0 255 0 -t 2
 
     text:
     python3.5 draw_shapes_on_image.py -i vehicular_traffic.jpg -s text -xy 640 530 -txt "Test text" -c 255 0 0 -t 2
@@ -286,7 +286,7 @@ if (geometric_shape == 'ellipse'):
 if (geometric_shape == 'polygon'):
 
     # retrieve polygon features
-    array = [[1048,180],[1121,220],[1099,314],[995,314],[976,220]]
+    array_list = args['array']
     boolean = args['boolean']
     colour = args['colour']
     thickness = args['thickness']
@@ -303,6 +303,8 @@ if (geometric_shape == 'polygon'):
     else:
 
         # retrieve polygon coordinates
+        array = np.array(array_list, np.int32)
+        array = array.reshape(-1,1,2)
         vrx = np.array([array], np.int32)
         vrx = vrx.reshape((-1,1,2))
         colour = tuple(list(map(int, colour)))
